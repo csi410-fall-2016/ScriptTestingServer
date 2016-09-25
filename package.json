@@ -1,0 +1,34 @@
+{
+  "name": "410-homework-submission-tester",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node ./bin/www",
+    "watch": "nodemon --ignore 'node_modules/*' --ignore 'logs/*' ./bin/www"
+  },
+  "dependencies": {
+    "async": "^2.0.1",
+    "body-parser": "~1.15.1",
+    "bunyan": "^1.8.1",
+    "cookie-parser": "~1.4.3",
+    "debug": "~2.2.0",
+    "express": "~4.13.4",
+    "faucet": "0.0.1",
+    "jade": "^1.11.0",
+    "lodash": "^4.16.1",
+    "minimist": "^1.2.0",
+    "mkdirp": "^0.5.1",
+    "morgan": "~1.7.0",
+    "multer": "^1.2.0",
+    "mysql": "^2.11.1",
+    "node-env-file": "^0.1.8",
+    "pg": "^6.1.0",
+    "rmdir": "^1.2.0",
+    "serve-favicon": "~2.3.0",
+    "tap-mocha-reporter": "^3.0.0",
+    "tap-to-html": "^1.1.1",
+    "tape": "^4.6.0",
+    "tape-dom": "0.0.12",
+    "unzip": "^0.1.11"
+  }
+}

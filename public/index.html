@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <!--<link rel="icon" href="../../favicon.ico">-->
+
+    <title>CSI 410 SQL Assignment Testing Application</title>
+
+    <link rel="stylesheet" 
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" 
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" 
+          crossorigin="anonymous">
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" 
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" 
+          integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" 
+          crossorigin="anonymous">
+
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <link href="/stylesheets/ie10-viewport-bug-workaround.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="/stylesheets/style.css" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <[endif]-->
+  </head>
+
+  <body>
+
+    <div class="container">
+
+      <!-- Static navbar -->
+      <nav class="navbar navbar-default">
+        <div class="container-fluid">
+
+          <div class="navbar-header">
+            <button type="button" 
+                    class="navbar-toggle collapsed" 
+                    data-toggle="collapse" 
+                    data-target="#navbar" 
+                    aria-expanded="false" 
+                    aria-controls="navbar">
+              <span class="sr-only">Toggle navigation</span>
+            </button>
+            <a class="navbar-brand" href="#">ICSI 410 Assignment Submission Tester</a>
+          </div>
+
+          <div id="navbar" class="navbar-collapse collapse">
+
+            <ul class="nav navbar-nav">
+              <li id="about_selector"><a href="#">About</a></li>
+              <li id="uploader_selector"><a href="#">Uploader</a></li>
+            </ul>
+
+          </div><!--/.nav-collapse -->
+        </div><!--/.container-fluid -->
+      </nav>
+
+      <div class="page-header" id="about-content-div">
+
+        <div id="about_div">
+          <h1>About</h1>
+          <p>
+              This application will allow you to run preliminary tests on your homework submissions.
+          </p>
+        </div>
+
+        <div id="uploader_div">
+          <h1>SQL Scripts Uploader</h1>
+          <form id="uploader_form" enctype="multipart/form-data" role="form" action=''>
+
+            <div id="db_server_selector">
+
+              <label class="radio-inline">
+                <input type="radio" name="db_server" value="mariadb">
+                MariaDB
+              </label>
+
+              <label class="radio-inline">
+                <input type="radio" name="db_server" value="mysql">
+                MySQL
+              </label>
+
+              <label class="radio-inline">
+                <input type="radio" name="db_server" value="postgres">
+                PostgreSQL
+              </label>
+            </div>
+
+            <div class="form-group">
+              <label for="sel1">Select list:</label>
+              <select class="form-control" id="sel1">
+                <option>Practice Assignment 1</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+
+              <div id="assignment_description_div">
+                <div id="practice_assignment_1_content_div">
+                  <h5>PREDICATES</h5>
+                  <ol>
+                    <li>
+                        Account ID <b>acct_id</b> 
+                        belongs to 
+                        the individual named <b>fname</b> <b>lname</b>.
+                    </li>
+
+                    <li>
+                        The individual named <b>fname</b> <b>lname</b>
+                        has the most available funds.i
+                    </li>
+                  </ol>
+                </div>
+              </div>
+
+              <div id="zipfile_uploader_div">
+                <label>
+                  Upload the ZIP file.
+                </label>
+                <input type="file" 
+                       id="sql_scripts_file" 
+                       name="zipfile" 
+                       class="form-control">
+              </div>
+
+            </div>
+
+            <div id="test-results-div"></div>
+
+
+            <div id="uploader_btn_row" class="row">
+              <div id="uploader_send_btn_div" class="float-left-btn">
+                <button id="uploader_send_btn" 
+                    type="button" 
+                    class="btn btn-warning btn-sm">
+                      Send
+                </button>
+              </div>
+
+              <div  id="uploader_reset_btn_div" class="float-left-btn pad-left-10 ">
+                <button id="remove_sql_scripts_file_btn" class="btn btn-primary btn-sm">
+                   Reset
+                </button>'
+              </div>
+            </div>
+
+          </form>
+        </div>
+
+      </div>
+
+    </div> <!-- /container -->
+
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+
+    <script>
+      window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')
+    </script>
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" 
+            integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" 
+            crossorigin="anonymous"></script>
+
+
+    <script src="javascripts/code.js"></script>
+  </body>
+</html>
