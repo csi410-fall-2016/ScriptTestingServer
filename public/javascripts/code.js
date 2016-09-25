@@ -54,12 +54,14 @@
     $("#uploader_selector").bind('click', switchActiveDiv.bind(null, '#uploader_div'))
     $('#uploader_reset_btn_div').on('click', resetUploaderForm)
 
+    function removeTheTestsReport () {
+      $('#test-results-div').html('<div></div>')
+    }
 
     function resetUploaderForm () {
       $("#sql_scripts_file").replaceWith($("#sql_scripts_file").clone(true))
-      $('#test-results-div').html('<div></div>')
       hideSQLFileControlButtons()
-
+      removeTheTestsReport()
       return false
     }
 
@@ -91,6 +93,7 @@
         resetUploaderForm()
         hideSQLFileControlButtons()
       } else {
+        removeTheTestsReport()
         showSQLFileControlButtons()
       }
     })
