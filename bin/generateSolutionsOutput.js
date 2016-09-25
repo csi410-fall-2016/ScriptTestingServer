@@ -14,11 +14,11 @@ if (!assignment) {
   process.exit(1)
 }
 
-const dbServers = require('../config/databaseServers')
+const dbServers = require('../src/constants/databaseServers')
 const dbServerNames = Object.keys(dbServers).map(s => dbServers[s])
 
 
-const assignmentToDatabaseMap = require('../config/assignmentToDatabaseMap')
+const assignmentToDatabaseMap = require('../src/constants/assignmentToDatabaseMap')
 const DB_NAME = assignmentToDatabaseMap[assignment].toLowerCase()
 
 
@@ -35,7 +35,9 @@ mkdirp.sync(resultsDir)
 
 
 const queryResultSerializer = (db, fileName, cb) => {
+
   const sqlPath = path.join(scriptsDir, db, fileName)
+
   fs.readFile(sqlPath, 'utf8', (err, q) => {
     if (err) {
       return cb(err)

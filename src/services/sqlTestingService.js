@@ -8,7 +8,7 @@ const async = require('async')
 
 const logger = require('../logger')
 
-const databaseServers = require('../../config/databaseServers')
+const databaseServers = require('../constants/databaseServers')
 const dbServerNames = Object.keys(databaseServers).map(svr => databaseServers[svr])
 
 const solutionsDir = path.join(__dirname, '../../solutions')
@@ -17,7 +17,6 @@ const assignmentNames = fs.readdirSync(solutionsDir).filter(f => !f.match(/^\./)
 
 // queryRunnersForDatabases[
 const queryRunnersForAssignments = require('../utils/DBUtils').queryRunnersForAssignments
-
 
 
 const expectedScripts = assignmentNames.reduce((acc, assignment) => {
@@ -48,7 +47,7 @@ const expectedResults = assignmentNames.reduce((acc, assignment) => {
       let fileNameBase = fileName.replace(/\.json/, '')
 
       let result = JSON.parse(serializedResult)
-      let schema = Object.keys(result[0])
+      let schema = Object.keys(result[0]).sort()
 
       acc2[svr][fileNameBase] = {
         result,
@@ -58,6 +57,18 @@ const expectedResults = assignmentNames.reduce((acc, assignment) => {
 
     return acc2
   }, {})
+
+  return acc
+}, {})
+
+
+const testingRules = assignmentNames.reduce((acc, assignment) => {
+
+  let rulesPath = path.join(solutionsDir, assignment, 'rules.json')
+
+  let rulesJSON = fs.readFileSync(rulesPath, 'utf8')
+
+  acc[assignment] = JSON.parse(rulesJSON)
 
   return acc
 }, {})
@@ -123,10 +134,10 @@ const _testSQLScript = (assignment, dbServer, submittedScriptsDir, fileName, cb)
         errors.push(dbErr.message)
       } else {
 
-        let predicate = fileName.replace(/.sql/, '')
-        let schema = Object.keys(result[0])
+        let questionNumber = fileName.replace(/.sql/, '')
+        let schema = Object.keys(result[0]).sort()
 
-        let expected = expectedResults[assignment][dbServer][predicate]
+        let expected = expectedResults[assignment][dbServer][questionNumber]
 
         let badSchema = !_.isEqual(expected.schema, schema)
 
@@ -139,14 +150,25 @@ const _testSQLScript = (assignment, dbServer, submittedScriptsDir, fileName, cb)
         let expectedForRecognizedColumns = expected.result.map(row => _.pick(row, recognizedColumns))
         let resultForRecognizedColumns = result.map(row => _.pick(row, recognizedColumns))
 
-        if (!_.isEqual(expectedForRecognizedColumns, resultForRecognizedColumns)) {
+        let rules = (testingRules[assignment] && testingRules[assignment][questionNumber]) || {}
+        let badResult
+
+        if (rules.order_matters) {
+          badResult = !_.isEqual(expectedForRecognizedColumns, resultForRecognizedColumns)
+        } else {
+          // Testing equality by set differences
+          let leftDiff = _.differenceWith(expectedForRecognizedColumns, resultForRecognizedColumns, _.isEqual)
+          let rightDiff = _.differenceWith(resultForRecognizedColumns, expectedForRecognizedColumns, _.isEqual)
+          badResult = !!(leftDiff.length + rightDiff.length)
+        }
+
+        if (badResult) {
           if (badSchema) {
             errors.push('For the result set columns that are in the expected schema, the result data is incorrect.')
           } else {
             errors.push('The result data is incorrect.')
           }
         }
-
       }
 
       if (errors.length) {

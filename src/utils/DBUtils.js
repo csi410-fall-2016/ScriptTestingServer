@@ -1,13 +1,13 @@
 'use strict'
 
 
-const dbServers = require('../../config/databaseServers')
+const dbServers = require('../constants/databaseServers')
 const dbServerNames = Object.keys(dbServers).map(svr => dbServers[svr])
 
-const databases = require('../../config/databases')
+const databases = require('../constants/databases')
 const databaseNames = Object.keys(databases).map(db => databases[db])
 
-const assignmentToDatabaseMap = require('../../config/assignmentToDatabaseMap')
+const assignmentToDatabaseMap = require('../constants/assignmentToDatabaseMap')
 
 const dbServices = dbServerNames.reduce((acc, svr) => {
   acc[svr] = require(`../services/${svr}Service`)

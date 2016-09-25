@@ -9,7 +9,7 @@ const envFile = require('node-env-file')
 envFile(path.join(__dirname, '../../config/postgres.env'))
 
 
-const databases = require('../../config/databases')
+const databases = require('../constants/databases')
 const databaseNames = Object.keys(databases).map(db => databases[db])
 
 
