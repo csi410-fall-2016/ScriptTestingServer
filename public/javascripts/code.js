@@ -57,15 +57,23 @@
 
     function resetUploaderForm () {
       $("#sql_scripts_file").replaceWith($("#sql_scripts_file").clone(true))
+      $('#test-results-div').html('<div></div>')
+      hideSQLFileControlButtons()
+
       return false
     }
 
     function showSQLFileControlButtons () {
+      $('#uploader_send_btn_div').show()
       $('#uploader_btn_row').show()
     }
 
     function hideSQLFileControlButtons () {
       $('#uploader_btn_row').hide()
+    }
+
+    function hideTheSendButton () {
+      $('#uploader_send_btn_div').hide()
     }
 
     $(':file').change(function () {
@@ -81,6 +89,7 @@
         }
 
         resetUploaderForm()
+        hideSQLFileControlButtons()
       } else {
         showSQLFileControlButtons()
       }
@@ -131,7 +140,6 @@
           } else {
             reportItem += `<ul>${msgs.map(m => `<li>${m}</li>`).join('')}</ul>`
           }
-          //return acc + `<dt class="text-${level}">state</dt>${msgs.map(m => `<dd class="text-${level}">${m}</dd>`).join('')}`
           reportItem += '</div>'
         }
 
@@ -160,6 +168,8 @@
             console.log('TODO: set prendingResultKey')
             console.log(results)
             $('#test-results-div').html(generateReport(results))
+            showSQLFileControlButtons()
+            hideTheSendButton()
           },
           data: formData,
           //Options to tell jQuery not to process data or worry about content-type.
@@ -167,6 +177,7 @@
           contentType: false,
           processData: false
       })
+
 
       return false
     }
