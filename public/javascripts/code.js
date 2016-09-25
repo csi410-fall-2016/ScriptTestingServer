@@ -31,15 +31,15 @@
 
     //const systemStatusPollTimeout = 1000
 
-    //function notify(pane, message, alertLevel) {
-        //alertLevel = alertLevel || 'info'
+    function notify (message, alertLevel) {
+        alertLevel = alertLevel || 'info'
 
-        //$('#' + pane + '_notifications_div').prepend(
-                //'<div class="alert alert-' + alertLevel + '">' +
-                    //'<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>' +
-                    //message + '<br/>Go to the SystemHealth pane for more details.' +
-                //'</div>')
-    //}
+        $('#notifications_div').prepend(
+          '<div class="alert alert-' + alertLevel + '">' +
+              '<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>' + message + '<br/>' +
+          '</div>'
+        )
+    }
 
     function switchActiveDiv (newActiveDiv) {
       $(activeDiv).hide()
@@ -93,6 +93,54 @@
     })
 
 
+    const generateReport = (results) => {
+
+      let testNames = Object.keys(results)
+
+      let reportStart = `<div class="list-group">`
+
+      let report = testNames.reduce((acc, testName) => {
+        let testStatus = (results[testName] && results[testName].trim && results[testName].trim().toLowerCase()) || results[testName]
+        let reportItem = ''
+
+
+        if (testStatus === 'passed') {
+          reportItem = `
+            <div href="#" class="list-group-item list-group-item-success">
+              <h3 class="list-group-item-heading">${testName}</h3>
+              <p class="list-group-item-text">Passed</p>
+            </div>`
+        } else if (testStatus === 'failed') {
+          reportItem = `
+            <div href="#" class="list-group-item list-group-item-danger">
+              <h3 class="list-group-item-heading">${testName}</h3>
+              <p class="list-group-item-text">Passed</p>
+            </div>`
+        } else if (typeof results[testName] === 'object') {
+          let state = Object.keys(testStatus)[0] // NOTE: expecting an object with a single key, 'failed', 'warning', etc
+          let level = (state.trim().toLowerCase() === 'failed') ? 'danger' : 'warning'
+
+          let msgs = testStatus[state]
+
+          reportItem = `
+            <div href="#" class="list-group-item list-group-item-${level}">
+              <h3 class="list-group-item-heading">${testName}</h3>`
+
+          if (!Array.isArray(msgs)) {
+            reportItem += `<p class="list-group-item-text">${msgs}</p>`
+          } else {
+            reportItem += `<ul>${msgs.map(m => `<li>${m}</li>`).join('')}</ul>`
+          }
+          //return acc + `<dt class="text-${level}">state</dt>${msgs.map(m => `<dd class="text-${level}">${m}</dd>`).join('')}`
+          reportItem += '</div>'
+        }
+
+        return acc + reportItem
+      }, reportStart)
+
+      return `${report}</div>`
+    }
+
     //let pendingResultsKey = null
 
     function postSQLScripts () {
@@ -105,13 +153,13 @@
       $.ajax({
           type : "POST",
           url  : url,
-          //error: function (xhr) {
-              ////notify('GTFS-Realtime', xhr.responseText, 'danger')
-          //},
-          success : function (response) {
+          error: function (xhr) {
+            notify(xhr.responseText, 'danger')
+          },
+          success : function (results) {
             console.log('TODO: set prendingResultKey')
-            console.log(response)
-            $('#test-results-div').append('<dl>' + response + '</dl>')
+            console.log(results)
+            $('#test-results-div').html(generateReport(results))
           },
           data: formData,
           //Options to tell jQuery not to process data or worry about content-type.
@@ -124,3 +172,27 @@
     }
 
 }())
+
+
+      //let report = testNames.reduce((acc, testName) => {
+        //if (results[testName].trim && (results[testName].trim().toLowerCase() === 'passed')) {
+          //return acc + `<dt class="text-success">${testName}</dt><dd class="text-success">Passed</dd>`
+        //} else if (results[testName].trim && (results[testName].trim().toLowerCase() === 'failed')) {
+          //return acc + `<dt class="text-danger">${testName}</dt><dd class="text-danger">Failed</dd>`
+        //} else if (typeof results[testName] === 'object') {
+          //let d = results[testName]
+          //let state = Object.keys(d)[0] // NOTE: expecting an object with a single key, 'failed', 'warning', etc
+          //let level = (state.trim().toLowerCase() === 'failed') ? 'danger' : 'warning'
+
+          //let msgs = Array.isArray(d[state]) ? d[state] : [d[state]]
+
+          //return acc + `<dt class="text-${level}">state</dt>${msgs.map(m => `<dd class="text-${level}">${m}</dd>`).join('')}`
+        //}
+
+        //return acc
+      //}, '<div class="alert" id="test_report_div"><dl>')
+
+      //return `${report}</dl></div>`
+    //}
+
+
