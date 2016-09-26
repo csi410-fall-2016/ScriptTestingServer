@@ -103,7 +103,7 @@ const _getArchiveStructure = (assignment, dbServer, dirPath, cb) => {
 }
 
 
-const _testNoExtraFiles = (extraFiles, cb) => {
+const _testZipArchiveStructure = (extraFiles, cb) => {
   let errors = []
 
   if (extraFiles && extraFiles.length) {
@@ -193,7 +193,7 @@ const _autoFailMissingFiles = (fileName, cb) =>
 const getTests = (assignment, dbServer, submittedScriptsDir, archiveData) => {
 
   let tests = {
-    'No Extra Files Test': _testNoExtraFiles.bind(null, archiveData.extraFiles),
+    'Zip Archive Structure Test': _testZipArchiveStructure.bind(null, archiveData.extraFiles),
   }
 
   archiveData.missingFiles.reduce((acc, fileName) => {
