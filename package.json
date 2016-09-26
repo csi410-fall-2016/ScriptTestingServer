@@ -25,6 +25,7 @@
     "pg": "^6.1.0",
     "rmdir": "^1.2.0",
     "serve-favicon": "~2.3.0",
+    "shortid": "^2.2.6",
     "tap-mocha-reporter": "^3.0.0",
     "tap-to-html": "^1.1.1",
     "tape": "^4.6.0",

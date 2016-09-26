@@ -9,11 +9,11 @@
     ]
 
     const assignments = [
-      'practice_assignment_1'
+      'uncle_ted_examples_1'
     ]
 
     let activeDiv = '#about_div'
-    let activeAssignment = 'practice_assignment_1'
+    let activeAssignment = 'uncle_ted_examples_1'
 
     for (let i = 0; i < contentDivs.length; ++i) {
       if (contentDivs[i] !== activeDiv) {
@@ -23,7 +23,7 @@
 
     for (let i = 0; i < assignments.length; ++i) {
       if (assignments[i] !== activeAssignment) {
-        $(assignments[i]).hide()
+        $(`${assignments[i]}_content_div}`).hide()
       }
     }
 
@@ -105,9 +105,17 @@
     })
 
 
+    const testsSorter = (a,b) => {
+      a = parseInt(a.match(/\d+/))
+      b = parseInt(b.match(/\d+/))
+
+      return a-b
+    }
+
+
     const generateReport = (results) => {
 
-      let testNames = Object.keys(results)
+      let testNames = Object.keys(results).sort(testsSorter)
 
       let reportStart = `<div class="list-group">`
 

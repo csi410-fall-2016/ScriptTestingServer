@@ -75,8 +75,13 @@ const testingRules = assignmentNames.reduce((acc, assignment) => {
 
 
 
+const fileSorter = (a,b) => {
+  a = parseInt(a.match(/\d+/))
+  b = parseInt(b.match(/\d+/))
 
-console.log(JSON.stringify(expectedResults,null,4))
+  return a-b
+}
+
 
 const _getArchiveStructure = (assignment, dbServer, dirPath, cb) => {
 
@@ -88,9 +93,9 @@ const _getArchiveStructure = (assignment, dbServer, dirPath, cb) => {
     let expected = expectedScripts[assignment][dbServer]
 
     let archiveData = {
-      recognizedFiles   : _.intersection(expected, files),
-      missingFiles      : _.difference(expected, files),
-      extraFiles : _.difference(files, expected),
+      recognizedFiles: _.intersection(expected, files).sort(fileSorter),
+      missingFiles: _.difference(expected, files),
+      extraFiles: _.difference(files, expected),
     }
 
     cb(null, archiveData)
@@ -192,13 +197,13 @@ const getTests = (assignment, dbServer, submittedScriptsDir, archiveData) => {
   }
 
   archiveData.missingFiles.reduce((acc, fileName) => {
-    let testName = `Predicate ${fileName.replace(/.sql/, '')} Test`
+    let testName = `Query ${fileName.replace(/.sql/, '')} Test`
     acc[testName] = _autoFailMissingFiles.bind(null, fileName)
     return acc
   }, tests)
 
   archiveData.recognizedFiles.reduce((acc, fileName) => {
-    let testName = `Predicate ${fileName.replace(/.sql/, '')} Test`
+    let testName = `Query ${fileName.replace(/.sql/, '')} Test`
     acc[testName] = _testSQLScript.bind(null, assignment, dbServer, submittedScriptsDir, fileName)
     return acc
   }, tests)
