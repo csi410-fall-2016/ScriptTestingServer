@@ -4,7 +4,8 @@
   "private": true,
   "scripts": {
     "start": "node ./bin/www",
-    "watch": "nodemon --ignore 'node_modules/*' --ignore 'logs/*' ./bin/www"
+    "watch": "nodemon --ignore 'node_modules/*' --ignore 'logs/*' ./bin/www",
+    "watch-log": "tail -f ./log/server.log | jq ."
   },
   "dependencies": {
     "async": "^2.0.1",

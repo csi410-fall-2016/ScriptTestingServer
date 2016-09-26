@@ -35,8 +35,11 @@ console.log('####: start')
         return res.status(500).send(err2.message)
       }
 
-console.log('================================')
-console.log(JSON.stringify(results, null, 4))
+      logger.info({
+        ip: req.headers['x-forwarded-for'] || req.connection.remoteAddress,
+        results,
+      })
+
       return res.send(results)
     })
   })
