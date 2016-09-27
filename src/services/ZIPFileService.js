@@ -33,6 +33,10 @@ const flattenIfNecessary = (extractDir, cb) => {
       return cb(err1)
     }
 
+    if (files1.length !== 1) {
+      return cb(null)
+    }
+
     if (files1.length === 1) {
       let dirName = files1[0]
       let dpath = path.join(extractDir, dirName)
