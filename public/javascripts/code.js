@@ -34,10 +34,10 @@
     function notify (message, alertLevel) {
         alertLevel = alertLevel || 'info'
 
-        $('#notifications_div').prepend(
-          '<div class="alert alert-' + alertLevel + '">' +
+        $('#test-results-div').html(
+            '<div class="alert alert-' + alertLevel + '">' +
               '<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>' + message + '<br/>' +
-          '</div>'
+            '</div>'
         )
     }
 
@@ -177,7 +177,6 @@
           },
           success : function (results) {
             console.log('TODO: set prendingResultKey')
-            console.log(results)
             $('#test-results-div').html(generateReport(results))
             showSQLFileControlButtons()
             hideTheSendButton()
