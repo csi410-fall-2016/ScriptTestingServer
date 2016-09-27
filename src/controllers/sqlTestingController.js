@@ -21,9 +21,9 @@ const controller = (req, res) => {
 
   const filePath = path.join(uploadDir, filename)
 
-console.log('####: start')
   extract(filePath, (err, xDirPath) => {
     if (err) {
+      console.error(err)
       logger.error(err)
       return res.status(500).send(err.message)
     }
