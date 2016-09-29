@@ -139,6 +139,8 @@ const _testSQLScript = (assignment, dbServer, submittedScriptsDir, fileName, cb)
         errors.push(dbErr.message)
       } else {
 
+        result = JSON.parse(JSON.stringify(result))
+
         let questionNumber = fileName.replace(/.sql/, '')
         let schema = Object.keys(result[0]).sort()
 
@@ -147,7 +149,8 @@ const _testSQLScript = (assignment, dbServer, submittedScriptsDir, fileName, cb)
         let badSchema = !_.isEqual(expected.schema, schema)
 
         if (badSchema) {
-          errors.push(`The result set has the wrong schema. The expected column names are: [${expected.schema.join()}]`)
+          errors.push('The result set has the wrong schema. ' +
+                      `The expected column names are: [${expected.schema.join()}]`)
         }
 
         let recognizedColumns = _.intersection(expected.schema, schema)
@@ -162,14 +165,21 @@ const _testSQLScript = (assignment, dbServer, submittedScriptsDir, fileName, cb)
           badResult = !_.isEqual(expectedForRecognizedColumns, resultForRecognizedColumns)
         } else {
           // Testing equality by set differences
-          let leftDiff = _.differenceWith(expectedForRecognizedColumns, resultForRecognizedColumns, _.isEqual)
-          let rightDiff = _.differenceWith(resultForRecognizedColumns, expectedForRecognizedColumns, _.isEqual)
+          let leftDiff = _.differenceWith(expectedForRecognizedColumns,
+                                          resultForRecognizedColumns,
+                                          _.isEqual)
+
+          let rightDiff = _.differenceWith(resultForRecognizedColumns,
+                                           expectedForRecognizedColumns,
+                                           _.isEqual)
+
           badResult = !!(leftDiff.length + rightDiff.length)
         }
 
         if (badResult) {
           if (badSchema) {
-            errors.push('For the result set columns that are in the expected schema, the result data is incorrect.')
+            errors.push('For the result set columns that are in the expected schema, ' +
+                        'the result data is incorrect.')
           } else {
             errors.push('The result data is incorrect.')
           }

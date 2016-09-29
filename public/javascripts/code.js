@@ -9,21 +9,16 @@
     ]
 
     const assignments = [
-      'uncle_ted_examples_1'
+      'homework_assignment_1',
+      'uncle_ted_examples_1',
     ]
 
     let activeDiv = '#about_div'
-    let activeAssignment = 'uncle_ted_examples_1'
+    let activeAssignment = 'homework_assignment_1'
 
     for (let i = 0; i < contentDivs.length; ++i) {
       if (contentDivs[i] !== activeDiv) {
         $(contentDivs[i]).hide()
-      }
-    }
-
-    for (let i = 0; i < assignments.length; ++i) {
-      if (assignments[i] !== activeAssignment) {
-        $(`${assignments[i]}_content_div}`).hide()
       }
     }
 
@@ -48,11 +43,14 @@
       activeDiv = newActiveDiv
     }
 
-
     // Bind actions to page elements.
     $("#about_selector").bind('click', switchActiveDiv.bind(null, '#about_div'))
     $("#uploader_selector").bind('click', switchActiveDiv.bind(null, '#uploader_div'))
     $('#uploader_reset_btn_div').on('click', resetUploaderForm)
+    $('#assignment_selector').on('change', function (){
+      activeAssignment = $(this).find("option:selected").val()
+      switchAssignment()
+    })
 
     function removeTheTestsReport () {
       $('#test-results-div').html('<div></div>')
@@ -77,6 +75,19 @@
     function hideTheSendButton () {
       $('#uploader_send_btn_div').hide()
     }
+
+    function switchAssignment () {
+      for (let i = 0; i < assignments.length; ++i) {
+        if (assignments[i] !== activeAssignment) {
+          $(`#${assignments[i]}_content_div`).hide()
+        } else {
+          $(`#${assignments[i]}_content_div`).show()
+        }
+      }
+      resetUploaderForm()
+    }
+    switchAssignment()
+
 
     $(':file').change(function () {
       let file = this.files[0]

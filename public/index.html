@@ -108,37 +108,151 @@
 
             <div class="form-group">
 
-              <div id="assignment_description_div">
-                <div id="uncle_ted_examples_1_content_div">
+              <div class="assignment_instructions" id="assignment_description_div">
+
+                <div id="homework_assignment_1">
                   <h2>Instructions</h2>
                   <p>
                     Upload the sql for the following queries in a ZIP archive. 
-                    The archive structure must be flat: i.e. when the archive is extracted, the sql files should <b>not</b> be in a directory.
-                    The file names should be for the form "<i>N</i>.sql", where <i>N</i> is the respective query number.  
+                    The file names should be for the form "<i>N</i>.sql", 
+                    where <i>N</i> is the respective query number.  
                   </p>
                   <h5>Queries</h5>
                   <ul class="list-group">
-                    <li class="list-group-item">1. Display all the data in the Department table.</li>
-                    <li class="list-group-item">2. Display the flast, ffirst, fdept, and fsalary columns from the Faculty table.  </li>
-                    <li class="list-group-item">3. Display all the first names in the Faculty table and remove duplicate rows.</li>
-                    <li class="list-group-item">4. Display all the data in the Course table in descending cname order.</li>
-                    <li class="list-group-item">5. Display the id, full name, and salary columns from the Faculty table and sort the output in telephone book order.</li>
-                    <li class="list-group-item">6. Join the Department and Faculty tables and display all the columns.</li>
-                    <li class="list-group-item">7. Join the Faculty and Course tables.</li>
-                    <li class="list-group-item">8. Join the Department and Course tables.</li>
-                    <li class="list-group-item">9. Join the Course and Section tables.</li>
-                    <li class="list-group-item">10. Do a 3-way join of the Department, Course, and Section tables.</li>
-                    <li class="list-group-item">11. Do a 3-way join of the Department, Faculty, and Section tables.</li>
-                    <li class="list-group-item">13. Find departments that offer courses.</li>
-                    <li class="list-group-item">18. Find departments that don’t offer courses.</li>
-                    <li class="list-group-item">19. Find courses that have sections.</li>
-                    <li class="list-group-item">20. Find courses that have sections.</li>
-                    <li class="list-group-item">25. Join subordinates and managers… they both just happen to be in the same table: Faculty.</li>
-                    <li class="list-group-item">26. Find all the subordinates who make more than their managers.</li>
-                    <li class="list-group-item">27. List all the departments in Faculty and Course.</li>
-                    <li class="list-group-item">28. Count the number of rows in Faculty.</li>
-                    <li class="list-group-item">29. Count the number of non-null fid values in Faculty.</li>
-                    <li class="list-group-item">30. Count the number of departments that offer courses.</li>
+                    <li class="list-group-item">
+                      1. Display all the data in the <b class="blue">account</b> table.
+                    </li>
+                    <li class="list-group-item">
+                      2. Display the <b>city</b> and <b>state</b> from 
+                          the <b class="blue">branch</b> table.
+                    </li>
+                    <li class="list-group-item">
+                      3. Display the <b>cust_id</b> for all <b class="blue">customer</b>s
+                          whose address is in Waltham, MA.
+                    </li>
+                    <li class="list-group-item">
+                      4. Display all the <b>postal_code</b>s in the <b class="blue">customer</b> table, 
+                         removing duplicates.
+                    </li>
+                    <li class="list-group-item">
+                      5. Display the <b>account_id</b>, <b>cust_id</b>, 
+                          and <b>avail_balance</b> columns from <b class="blue">account</b>, in
+                          descending order by avail_balance, then account_id, then cust_id.
+                    </li>
+                    <li class="list-group-item">
+                      6. Display <b>cust_id</b>, <b>lname</b>, and <b>fname</b>
+                          from <b class="blue">individual</b>, in ascending order by lname,
+                          then fname, then cust_id.
+                    </li>
+                    <li class="list-group-item">
+                      7. Join the <b class="blue">business</b> and <b class="blue">officer</b> tables
+                          and display all columns.
+                          Each column name should appear only once in the result.
+                    </li>
+                    <li class="list-group-item">
+                      8. Join the <b class="blue">account</b> and <b class="blue">customer</b> tables
+                          and display the <b>city</b> and <b>state</b> columns 
+                          in descending order by avail_balance, 
+                          then ascending order by state, then city. 
+                          
+                          In other words, accounts should appear in descending order by avail_balance. 
+                          When two accounts have the same avail_balance, 
+                          then they should appear in ascending order by state, then city.
+                    </li>
+                    <li class="list-group-item">
+                      9. Do a three way join on <b class="blue">account</b>, 
+                          <b class="blue">product</b>, and <b class="blue">product_type</b> and 
+                          display <b>account_id</b>, <b>cust_id</b>, and <b>product_cd</b> 
+                          for all accounts where the product_type_cd is 'LOAN'. 
+                          Each column name should only appear once in the result.
+                    </li>
+                    <li class="list-group-item">
+                      10. Display the <b>name</b>s of all branches
+                          where at least one business account (cust_type_cd = 'B') was opened.
+                          The necessary data is in the <b class="blue">account</b>,
+                          <b class="blue">branch</b>, <b class="blue">customer</b> tables.
+                          <u><i>You must use a subquery.</i></u>
+                          (The sql-tester will not check this. I will need to check for
+                           your using subqueries manually. The tester will only check if 
+                           the result has the correct column names and data.)
+                    </li>
+                  </ul>
+                </div>
+
+                <div class="assignment_instructions" id="uncle_ted_examples_1_content_div">
+                  <h2>Instructions</h2>
+                  <p>
+                    Upload the sql for the following queries in a ZIP archive. 
+                    The file names should be for the form "<i>N</i>.sql", 
+                    where <i>N</i> is the respective query number.  
+                  </p>
+                  <h5>Queries</h5>
+                  <ul class="list-group">
+                    <li class="list-group-item">
+                      1. Display all the data in the Department table.
+                    </li>
+                    <li class="list-group-item">
+                      2. Display the flast, ffirst, fdept, and fsalary columns from the Faculty table.
+                    </li>
+                    <li class="list-group-item">
+                      3. Display all the first names in the Faculty table and remove duplicate rows.
+                    </li>
+                    <li class="list-group-item">
+                      4. Display all the data in the Course table in descending cname order.
+                    </li>
+                    <li class="list-group-item">
+                      5. Display the id, full name, and salary columns from the Faculty table 
+                          and sort the output in telephone book order.
+                    </li>
+                    <li class="list-group-item">
+                      6. Join the Department and Faculty tables and display all the columns.
+                    </li>
+                    <li class="list-group-item">
+                      7. Join the Faculty and Course tables.
+                    </li>
+                    <li class="list-group-item">
+                      8. Join the Department and Course tables.
+                    </li>
+                    <li class="list-group-item">
+                      9. Join the Course and Section tables.
+                    </li>
+                    <li class="list-group-item">
+                      10. Do a 3-way join of the Department, Course, and Section tables.
+                    </li>
+                    <li class="list-group-item">
+                      11. Do a 3-way join of the Department, Faculty, and Section tables.
+                    </li>
+                    <li class="list-group-item">
+                      13. Find departments that offer courses.
+                    </li>
+                    <li class="list-group-item">
+                      18. Find departments that don’t offer courses.
+                    </li>
+                    <li class="list-group-item">
+                      19. Find courses that have sections.
+                    </li>
+                    <li class="list-group-item">
+                      20. Find courses that have sections.
+                    </li>
+                    <li class="list-group-item">
+                      25. Join subordinates and managers… 
+                          they both just happen to be in the same table: Faculty.
+                    </li>
+                    <li class="list-group-item">
+                      26. Find all the subordinates who make more than their managers.
+                    </li>
+                    <li class="list-group-item">
+                      27. List all the departments in Faculty and Course.
+                    </li>
+                    <li class="list-group-item">
+                      28. Count the number of rows in Faculty.
+                    </li>
+                    <li class="list-group-item">
+                      29. Count the number of non-null fid values in Faculty.
+                    </li>
+                    <li class="list-group-item">
+                      30. Count the number of departments that offer courses.
+                    </li>
                   </ul>
                 </div>
               </div>

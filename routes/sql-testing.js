@@ -11,6 +11,8 @@ const shortid = require('shortid')
 
 const mkdirp  = require('mkdirp')
 
+const logger = require('logger')
+
 
 const PracticeAssignment1Controller = require('../src/controllers/sqlTestingController')
 
@@ -24,7 +26,13 @@ const sqlScriptsMulterStorage = multer.diskStorage({
   destination: uploadDir,
 
   filename: function (req, file, cb) {
-    let filename = `${Date.now()}-${shortid.generate()}.zip`
+
+    let filename = `${file.originalname}-${Date.now()}-${shortid.generate()}.zip`
+
+    logger.info({
+      ip: req.headers['x-forwarded-for'] || req.connection.remoteAddress,
+      filename,
+    })
 
     cb(null, filename)
   },
