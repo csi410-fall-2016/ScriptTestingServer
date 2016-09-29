@@ -11,7 +11,7 @@ const shortid = require('shortid')
 
 const mkdirp  = require('mkdirp')
 
-const logger = require('logger')
+const logger = require('../src/logger')
 
 
 const PracticeAssignment1Controller = require('../src/controllers/sqlTestingController')
