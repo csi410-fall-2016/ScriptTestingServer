@@ -77,6 +77,7 @@
     }
 
     function switchAssignment () {
+console.log('############:', activeAssignment)
       for (let i = 0; i < assignments.length; ++i) {
         if (assignments[i] !== activeAssignment) {
           $(`#${assignments[i]}_content_div`).hide()
@@ -134,7 +135,6 @@
         let testStatus = (results[testName] && results[testName].trim && results[testName].trim().toLowerCase()) || results[testName]
         let reportItem = ''
 
-
         if (testStatus === 'passed') {
           reportItem = `
             <div href="#" class="list-group-item list-group-item-success">
@@ -187,7 +187,7 @@
             notify(xhr.responseText, 'danger')
           },
           success : function (results) {
-            console.log('TODO: set prendingResultKey')
+            console.log('TODO: set pendingResultKey')
             $('#test-results-div').html(generateReport(results))
             showSQLFileControlButtons()
             hideTheSendButton()
@@ -204,27 +204,3 @@
     }
 
 }())
-
-
-      //let report = testNames.reduce((acc, testName) => {
-        //if (results[testName].trim && (results[testName].trim().toLowerCase() === 'passed')) {
-          //return acc + `<dt class="text-success">${testName}</dt><dd class="text-success">Passed</dd>`
-        //} else if (results[testName].trim && (results[testName].trim().toLowerCase() === 'failed')) {
-          //return acc + `<dt class="text-danger">${testName}</dt><dd class="text-danger">Failed</dd>`
-        //} else if (typeof results[testName] === 'object') {
-          //let d = results[testName]
-          //let state = Object.keys(d)[0] // NOTE: expecting an object with a single key, 'failed', 'warning', etc
-          //let level = (state.trim().toLowerCase() === 'failed') ? 'danger' : 'warning'
-
-          //let msgs = Array.isArray(d[state]) ? d[state] : [d[state]]
-
-          //return acc + `<dt class="text-${level}">state</dt>${msgs.map(m => `<dd class="text-${level}">${m}</dd>`).join('')}`
-        //}
-
-        //return acc
-      //}, '<div class="alert" id="test_report_div"><dl>')
-
-      //return `${report}</dl></div>`
-    //}
-
-
