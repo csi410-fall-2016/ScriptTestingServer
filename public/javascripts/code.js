@@ -91,9 +91,12 @@ console.log('############:', activeAssignment)
 
 
     $(':file').change(function () {
-      //let file = this.files[0]
+      let file = this.files[0]
 
-      //if (file.type !== "application/zip") {
+      if (file.type !== "application/zip") {
+console.log('file.type ==>', file.type)
+removeTheTestsReport()
+showSQLFileControlButtons()
         //if (!$('#zip-warning').length) {
           //$('#uploader_form').append(
               //'<div id="zip-warning" class="alert alert-danger">' +
@@ -104,10 +107,10 @@ console.log('############:', activeAssignment)
 
         //resetUploaderForm()
         //hideSQLFileControlButtons()
-      //} else {
+      } else {
         removeTheTestsReport()
         showSQLFileControlButtons()
-      //}
+      }
     })
 
     $('#uploader_send_btn').bind('click', function () {
