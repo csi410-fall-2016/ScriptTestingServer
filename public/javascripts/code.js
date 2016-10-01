@@ -91,23 +91,23 @@ console.log('############:', activeAssignment)
 
 
     $(':file').change(function () {
-      let file = this.files[0]
+      //let file = this.files[0]
 
-      if (file.type !== "application/zip") {
-        if (!$('#zip-warning').length) {
-          $('#uploader_form').append(
-              '<div id="zip-warning" class="alert alert-danger">' +
-                  '<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>' +
-                  "SQL scripts uploads must be in a .zip archive." +
-              '</div>')
-        }
+      //if (file.type !== "application/zip") {
+        //if (!$('#zip-warning').length) {
+          //$('#uploader_form').append(
+              //'<div id="zip-warning" class="alert alert-danger">' +
+                  //'<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>' +
+                  //"SQL scripts uploads must be in a .zip archive." +
+              //'</div>')
+        //}
 
-        resetUploaderForm()
-        hideSQLFileControlButtons()
-      } else {
+        //resetUploaderForm()
+        //hideSQLFileControlButtons()
+      //} else {
         removeTheTestsReport()
         showSQLFileControlButtons()
-      }
+      //}
     })
 
     $('#uploader_send_btn').bind('click', function () {
