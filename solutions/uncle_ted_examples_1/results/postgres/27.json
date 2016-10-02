@@ -1,0 +1,1 @@
+{"command":"SELECT","rowCount":5,"oid":null,"rows":[{"fdept":"CSI"},{"fdept":"ENG"},{"fdept":"ADM"},{"fdept":"ATM"},{"fdept":"BIO"}],"fields":[{"name":"fdept","tableID":0,"columnID":0,"dataTypeID":1043,"dataTypeSize":-1,"dataTypeModifier":7,"format":"text"}],"_parsers":[null],"rowAsArray":false}

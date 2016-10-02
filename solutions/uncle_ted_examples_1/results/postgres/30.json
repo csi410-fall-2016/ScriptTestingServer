@@ -1,0 +1,1 @@
+{"command":"SELECT","rowCount":1,"oid":null,"rows":[{"count":"4"}],"fields":[{"name":"count","tableID":0,"columnID":0,"dataTypeID":20,"dataTypeSize":8,"dataTypeModifier":-1,"format":"text"}],"_parsers":[null],"rowAsArray":false}

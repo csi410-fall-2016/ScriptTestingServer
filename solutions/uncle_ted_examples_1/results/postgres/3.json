@@ -1,0 +1,1 @@
+{"command":"SELECT","rowCount":7,"oid":null,"rows":[{"ffirst":"Alfred"},{"ffirst":"Mary"},{"ffirst":"Kathy"},{"ffirst":"John"},{"ffirst":"Ted"},{"ffirst":"Alice"},{"ffirst":"Bill"}],"fields":[{"name":"ffirst","tableID":24588,"columnID":3,"dataTypeID":1043,"dataTypeSize":-1,"dataTypeModifier":54,"format":"text"}],"_parsers":[null],"rowAsArray":false}
