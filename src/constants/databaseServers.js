@@ -5,11 +5,11 @@
 
 const MARIADB = 'mariadb'
 const MYSQL = 'mysql'
-//const POSTGRES = 'postgres'
+const POSTGRES = 'postgres'
 
 
 module.exports = {
   MARIADB,
   MYSQL,
-  //POSTGRES,
+  POSTGRES,
 }

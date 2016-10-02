@@ -11,6 +11,8 @@ const logger = require('../logger')
 const databaseServers = require('../constants/databaseServers')
 const dbServerNames = Object.keys(databaseServers).map(svr => databaseServers[svr])
 
+const POSTGRES = databaseServers.POSTGRES
+
 const solutionsDir = path.join(__dirname, '../../solutions')
 const assignmentNames = fs.readdirSync(solutionsDir).filter(f => !f.match(/^\./))
 
@@ -47,6 +49,11 @@ const expectedResults = assignmentNames.reduce((acc, assignment) => {
       let fileNameBase = fileName.replace(/\.json/, '')
 
       let result = JSON.parse(serializedResult)
+
+      if (svr === POSTGRES) {
+        result = result.rows
+      }
+
       let schema = Object.keys(result[0]).sort()
 
       acc2[svr][fileNameBase] = {
@@ -138,6 +145,10 @@ const _testSQLScript = (assignment, dbServer, submittedScriptsDir, fileName, cb)
       if (dbErr) {
         errors.push(dbErr.message)
       } else {
+
+        if (dbServer === POSTGRES) {
+          result = result.rows
+        }
 
         result = JSON.parse(JSON.stringify(result))
 
