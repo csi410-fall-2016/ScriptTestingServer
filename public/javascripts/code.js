@@ -93,20 +93,17 @@ console.log('############:', activeAssignment)
     $(':file').change(function () {
       let file = this.files[0]
 
-      if (file.type !== "application/zip") {
-console.log('file.type ==>', file.type)
-removeTheTestsReport()
-showSQLFileControlButtons()
-        //if (!$('#zip-warning').length) {
-          //$('#uploader_form').append(
-              //'<div id="zip-warning" class="alert alert-danger">' +
-                  //'<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>' +
-                  //"SQL scripts uploads must be in a .zip archive." +
-              //'</div>')
-        //}
+      if (!file.type.match(/zip/i)) {
+        if (!$('#zip-warning').length) {
+          $('#uploader_form').append(
+              '<div id="zip-warning" class="alert alert-danger">' +
+                  '<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>' +
+                  "SQL scripts uploads must be in a .zip archive." +
+              '</div>')
+        }
 
-        //resetUploaderForm()
-        //hideSQLFileControlButtons()
+        resetUploaderForm()
+        hideSQLFileControlButtons()
       } else {
         removeTheTestsReport()
         showSQLFileControlButtons()
