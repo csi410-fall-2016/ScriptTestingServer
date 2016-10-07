@@ -7,5 +7,6 @@ const UNCLE_TED_SAMPLE = databases.UNCLE_TED_SAMPLE
 module.exports = {
   practice_assignment_1: LEARNING_SQL,
   uncle_ted_examples_1: UNCLE_TED_SAMPLE,
+  uncle_ted_examples_2: UNCLE_TED_SAMPLE,
   homework_assignment_1: LEARNING_SQL,
 }

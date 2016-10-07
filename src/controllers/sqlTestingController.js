@@ -36,6 +36,9 @@ const controller = (req, res) => {
       }
 
       logger.info({
+        filename,
+        dbServer,
+        assignment,
         ip: req.headers['x-forwarded-for'] || req.connection.remoteAddress,
         results,
       })

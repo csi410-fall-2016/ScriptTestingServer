@@ -11,6 +11,7 @@
     const assignments = [
       'homework_assignment_1',
       'uncle_ted_examples_1',
+      'uncle_ted_examples_2',
     ]
 
     let activeDiv = '#about_div'
@@ -23,8 +24,6 @@
     }
 
     hideSQLFileControlButtons()
-
-    //const systemStatusPollTimeout = 1000
 
     function notify (message, alertLevel) {
         alertLevel = alertLevel || 'info'
@@ -77,7 +76,6 @@
     }
 
     function switchAssignment () {
-console.log('############:', activeAssignment)
       for (let i = 0; i < assignments.length; ++i) {
         if (assignments[i] !== activeAssignment) {
           $(`#${assignments[i]}_content_div`).hide()
