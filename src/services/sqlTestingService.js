@@ -71,13 +71,16 @@ const expectedResults = assignmentNames.reduce((acc, assignment) => {
 
 const testingRules = assignmentNames.reduce((acc, assignment) => {
 
-  let rulesPath = path.join(solutionsDir, assignment, 'rules.json')
+  try {
+    let rulesPath = path.join(solutionsDir, assignment, 'rules.json')
 
-  let rulesJSON = fs.readFileSync(rulesPath, 'utf8')
+    let rulesJSON = fs.readFileSync(rulesPath, 'utf8')
 
-  acc[assignment] = JSON.parse(rulesJSON)
+    acc[assignment] = JSON.parse(rulesJSON)
+  } finally {
+    return acc
+  }
 
-  return acc
 }, {})
 
 
