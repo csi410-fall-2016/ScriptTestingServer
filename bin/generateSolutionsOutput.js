@@ -46,6 +46,7 @@ const queryResultSerializer = (db, fileName, cb) => {
     queryRunners[db](q, (err2, results) => {
 
       if (err2) {
+        console.error(`ERROR: db=${db}, fileName=${fileName}`)
         return cb(err2)
       }
 

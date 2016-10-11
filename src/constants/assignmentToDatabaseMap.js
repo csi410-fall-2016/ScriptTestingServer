@@ -9,4 +9,5 @@ module.exports = {
   uncle_ted_examples_1: UNCLE_TED_SAMPLE,
   uncle_ted_examples_2: UNCLE_TED_SAMPLE,
   homework_assignment_1: LEARNING_SQL,
+  homework_assignment_2: LEARNING_SQL,
 }
