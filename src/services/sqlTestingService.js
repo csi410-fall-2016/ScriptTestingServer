@@ -142,6 +142,8 @@ const _testSQLScript = (assignment, dbServer, submittedScriptsDir, fileName, cb)
       return cb(null, { failed: fsErr.message })
     }
 
+    query = query.replace(/^\uFEFF/, '') // Remove the byte order mark (pgadmin3 issue)
+
     let queryRunner = queryRunnersForAssignments[assignment][dbServer]
 
     queryRunner(query, (dbErr, result) => {
