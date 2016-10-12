@@ -10,6 +10,7 @@
 
     const assignments = [
       'homework_assignment_1',
+      'homework_assignment_2',
       'uncle_ted_examples_1',
       'uncle_ted_examples_2',
     ]
@@ -130,7 +131,9 @@
       let reportStart = `<div class="list-group">`
 
       let report = testNames.reduce((acc, testName) => {
-        let testStatus = (results[testName] && results[testName].trim && results[testName].trim().toLowerCase()) || results[testName]
+        let testStatus = (results[testName] &&
+                          results[testName].trim &&
+                          results[testName].trim().toLowerCase()) || results[testName]
         let reportItem = ''
 
         if (testStatus === 'passed') {
@@ -146,7 +149,10 @@
               <p class="list-group-item-text">Passed</p>
             </div>`
         } else if (typeof results[testName] === 'object') {
-          let state = Object.keys(testStatus)[0] // NOTE: expecting an object with a single key, 'failed', 'warning', etc
+
+          // NOTE: expecting an object with a single key, 'failed', 'warning', etc
+          let state = Object.keys(testStatus)[0]
+
           let level = (state.trim().toLowerCase() === 'failed') ? 'danger' : 'warning'
 
           let msgs = testStatus[state]

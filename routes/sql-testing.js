@@ -14,7 +14,7 @@ const mkdirp  = require('mkdirp')
 const logger = require('../src/logger')
 
 
-const PracticeAssignment1Controller = require('../src/controllers/sqlTestingController')
+const sqlTestingController = require('../src/controllers/sqlTestingController')
 
 const uploadDir = path.join(__dirname, '../tmp/uploads/')
 
@@ -57,7 +57,7 @@ const fileExtractor = (req, res, next) => {
 }
 
 
-router.post('/', fileExtractor, PracticeAssignment1Controller)
+router.post('/', fileExtractor, sqlTestingController)
 
 
 module.exports = router

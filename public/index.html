@@ -103,6 +103,7 @@
               <label for="sel1">Select list:</label>
               <select class="form-control" id="assignment_selector">
                 <option>homework_assignment_1</option>
+                <option>homework_assignment_2</option>
                 <option>uncle_ted_examples_1</option>
                 <option>uncle_ted_examples_2</option>
               </select>
@@ -178,6 +179,108 @@
                           (The sql-tester will not check this. I will need to check for
                            your using subqueries manually. The tester will only check if 
                            the result has the correct column names and data.)
+                    </li>
+                  </ul>
+                </div>
+
+                <div id="homework_assignment_2_content_div">
+                  <h2>Instructions</h2>
+                  <p>
+                    Upload the sql for the following queries in a ZIP archive. 
+                    The file names should be for the form "<i>N</i>.sql", 
+                    where <i>N</i> is the respective query number.  
+                  </p>
+                  <h5>Queries</h5>
+                  <ul class="list-group">
+                    <li class="list-group-item">
+                      1. For the <b class="blue">account</b> table, show    
+                      <ul>
+                        <li>the total of all avail_balances as <b>total_avail_balance</b>,</li>
+                        <li>the average of all avail_balances as <b>avg_avail_balance</b>,</li>
+                        <li>the minimum of all avail_balances as <b>min_avail_balance</b>,</li>
+                        <li>the maximum of all avail_balances as <b>max_avail_balance</b>,</li>
+                        <li>the count of all avail_balances as <b>count_avail_balance</b>.</li>
+                      </ul>
+
+                      <br/>
+                        The result of the query should be a single row with 
+                          the above specified column names.
+                    </li>
+                    <li class="list-group-item">
+                      2. Show the <b>account_id</b> and <b>avail_balance</b> 
+                          for all checking <b class="blue">accounts</b>
+                          (i.e. account.product_cd = 'CHK') where the available balance 
+                          is more than twice the average checking account balance.
+                    </li>
+                    <li class="list-group-item">
+                      3. Show the total number of <b class="blue">transaction</b>s where 
+                          the teller_emp_id is null. The column name should be <b>nonteller_txn_ct</b>.
+                    </li>
+                    <li class="list-group-item">
+                      4. Show the <b>name</b> of every <b class="blue">branch</b> 
+                          where no <b class="blue">transaction</b> took place.
+                    </li>
+                    <li class="list-group-item">
+                      5. Show the <b>cust_id</b> and <b>total</b> of avail_balances 
+                          across all <b class="blue">account</b>s for each customer.
+                    </li>
+                    <li class="list-group-item">
+                      6. Show the <b>cust_id</b>, <b>fname</b>, <b>lname</b>, and 
+                        the <b class="blue">account</b> <b>product_cd</b> 
+                        of all <b class="blue">individual</b>s who have only one account.
+                    </li>
+                    <li class="list-group-item">
+                      7. Show all <b class="blue">business</b> <b>name</b>s where 
+                          an <b class="blue">officer</b>'s last name appears in the business name.
+                    </li>
+                    <li class="list-group-item">
+                      8. Show the 6 highest <b>avail_balance</b>s in <b class="blue">account</b> 
+                          <i>in descending order</i>. An avail_balance with duplicates 
+                          should only count once. For example, consider the following 
+                          list of numbers: (1,2,3,3,4). The highest three numbers would be (4,3,2). 
+                          <br/>
+                          <br/>
+                          HINT: Look at the slide for “Query 57: Better way to find the 6
+                          highest salaries in faculty”. 
+                          <br/>
+                          <br/>
+                          WARNING: phpMyAdmin may complain about non-existent errors. 
+                    </li>
+                    <li class="list-group-item">
+                      9. Show the names of the <b class="blue">individual</b>s with 
+                         the closest birth_dates. The individual names should be 
+                         formatted as 'lname, fname'.  I.E 'Smith, Joe'. 
+                         The column name for the older individual's name should be <b>individual_1</b>. 
+                         The column name for the older individual's name should be <b>individual_2</b>. 
+
+                         <br/>
+                         <br/>
+                         HINTS:
+                         <ol>
+                          <li>
+                              Look at “Query 37: This solves the original problem”. 
+                              You need to use the idea of leveraging information obtained in a subquery.
+                          </li>
+                          <li>
+                              Use the subtraction operator, -, to get relative differences 
+                              between the birth dates.
+                          </li>
+                          <li>
+                              Table aliases are your friend.
+                          </li>
+                         </ol>
+                    </li>
+                    <li class="list-group-item">
+                      10. Show the <b>account_id</b>, <b>teller_txn_total</b>, and 
+                          <b>nonteller_txn_total</b> for each <b class="blue">account</b>,
+                          where teller_txn_total is the sum of all teller 
+                          <b class="blue">transaction</b>s (teller_emp_id is not null),
+                          and nonteller_txn_total is the total amount of all non-teller transactions.
+                          Order by the ratio of teller_txn_total to the total amount of 
+                          all transactions for that customer.
+                          <br/>
+                          <br/>
+                          WARNING: again, phpMyAdmin may again complain about non-existent errors.
                     </li>
                   </ul>
                 </div>
