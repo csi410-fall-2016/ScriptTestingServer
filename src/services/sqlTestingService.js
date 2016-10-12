@@ -151,54 +151,66 @@ const _testSQLScript = (assignment, dbServer, submittedScriptsDir, fileName, cb)
         errors.push(dbErr.message)
       } else {
 
-        if (dbServer === POSTGRES) {
-          result = result.rows
-        }
-
-        result = JSON.parse(JSON.stringify(result))
-
-        let questionNumber = fileName.replace(/.sql/, '')
-        let schema = Object.keys(result[0]).sort()
-
-        let expected = expectedResults[assignment][dbServer][questionNumber]
-
-        let badSchema = !_.isEqual(expected.schema, schema)
-
-        if (badSchema) {
-          errors.push('The result set has the wrong schema. ' +
-                      `The expected column names are: [${expected.schema.join()}]`)
-        }
-
-        let recognizedColumns = _.intersection(expected.schema, schema)
-
-        let expectedForRecognizedColumns = expected.result.map(row => _.pick(row, recognizedColumns))
-        let resultForRecognizedColumns = result.map(row => _.pick(row, recognizedColumns))
-
-        let rules = (testingRules[assignment] && testingRules[assignment][questionNumber]) || {}
-        let badResult
-
-        if (rules.order_matters) {
-          badResult = !_.isEqual(expectedForRecognizedColumns, resultForRecognizedColumns)
-        } else {
-          // Testing equality by set differences
-          let leftDiff = _.differenceWith(expectedForRecognizedColumns,
-                                          resultForRecognizedColumns,
-                                          _.isEqual)
-
-          let rightDiff = _.differenceWith(resultForRecognizedColumns,
-                                           expectedForRecognizedColumns,
-                                           _.isEqual)
-
-          badResult = !!(leftDiff.length + rightDiff.length)
-        }
-
-        if (badResult) {
-          if (badSchema) {
-            errors.push('For the result set columns that are in the expected schema, ' +
-                        'the result data is incorrect.')
-          } else {
-            errors.push('The result data is incorrect.')
+        try {
+          if (dbServer === POSTGRES) {
+            result = result && result.rows
           }
+
+          if (!(result && result[0])) {
+            errors.push('Empty response from the database.')
+          } else {
+
+            result = JSON.parse(JSON.stringify(result))
+
+
+            let questionNumber = fileName.replace(/.sql/, '')
+            let schema = Object.keys(result[0]).sort()
+
+            let expected = expectedResults[assignment][dbServer][questionNumber]
+
+            let badSchema = !_.isEqual(expected.schema, schema)
+
+            if (badSchema) {
+              errors.push('The result set has the wrong schema. ' +
+                          `The expected column names are: [${expected.schema.join()}]`)
+            }
+
+            let recognizedColumns = _.intersection(expected.schema, schema)
+
+            let expectedForRecognizedColumns = expected.result.map(row => _.pick(row, recognizedColumns))
+            let resultForRecognizedColumns = result.map(row => _.pick(row, recognizedColumns))
+
+            let rules = (testingRules[assignment] && testingRules[assignment][questionNumber]) || {}
+            let badResult
+
+            if (rules.order_matters) {
+              badResult = !_.isEqual(expectedForRecognizedColumns, resultForRecognizedColumns)
+            } else {
+              // Testing equality by set differences
+              let leftDiff = _.differenceWith(expectedForRecognizedColumns,
+                                              resultForRecognizedColumns,
+                                              _.isEqual)
+
+              let rightDiff = _.differenceWith(resultForRecognizedColumns,
+                                               expectedForRecognizedColumns,
+                                               _.isEqual)
+
+              badResult = !!(leftDiff.length + rightDiff.length)
+            }
+
+            if (badResult) {
+              if (badSchema) {
+                errors.push('For the result set columns that are in the expected schema, ' +
+                            'the result data is incorrect.')
+              } else {
+                errors.push('The result data is incorrect.')
+              }
+            }
+
+          }
+
+        } catch (e) {
+          errors.push(e.message)
         }
       }
 
