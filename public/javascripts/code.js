@@ -16,7 +16,7 @@
     ]
 
     let activeDiv = '#about_div'
-    let activeAssignment = 'homework_assignment_1'
+    let activeAssignment = 'homework_assignment_2'
 
     for (let i = 0; i < contentDivs.length; ++i) {
       if (contentDivs[i] !== activeDiv) {
@@ -90,23 +90,26 @@
 
 
     $(':file').change(function () {
-      let file = this.files[0]
+      let file = this.files && this.files[0]
 
-      if (!file.type.match(/zip/i)) {
-        if (!$('#zip-warning').length) {
-          $('#uploader_form').append(
-              '<div id="zip-warning" class="alert alert-danger">' +
-                  '<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>' +
-                  "SQL scripts uploads must be in a .zip archive." +
-              '</div>')
-        }
+      //if (!file.type.match(/zip/i)) {
+        //if (!$('#zip-warning').length) {
+          //$('#uploader_form').append(
+              //'<div id="zip-warning" class="alert alert-danger">' +
+                  //'<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>' +
+                  //"SQL scripts uploads must be in a .zip archive." +
+              //'</div>')
+        //}
 
-        resetUploaderForm()
-        hideSQLFileControlButtons()
-      } else {
-        removeTheTestsReport()
-        showSQLFileControlButtons()
-      }
+        //resetUploaderForm()
+        //hideSQLFileControlButtons()
+      //} else {
+        //removeTheTestsReport()
+        //showSQLFileControlButtons()
+      //}
+console.log("file.type:", file && file.type)
+      removeTheTestsReport()
+      showSQLFileControlButtons()
     })
 
     $('#uploader_send_btn').bind('click', function () {
@@ -114,7 +117,6 @@
         resetUploaderForm()
         return false
     })
-
 
     const testsSorter = (a,b) => {
       a = parseInt(a.match(/\d+/))
