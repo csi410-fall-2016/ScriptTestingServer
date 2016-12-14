@@ -83,13 +83,8 @@
 
             <div id="db_server_selector">
 
-              <label class="radio-inline active">
-                <input type="radio" name="db_server" value="mariadb" checked="">
-                MariaDB
-              </label>
-
               <label class="radio-inline">
-                <input type="radio" name="db_server" value="mysql">
+                <input type="radio" name="db_server" value="mysql" checked="">
                 MySQL
               </label>
 
@@ -103,7 +98,7 @@
               <label for="sel1">Select list:</label>
               <select class="form-control" id="assignment_selector">
                 <option>homework_assignment_1</option>
-                <option>homework_assignment_2</option>
+                <option selected>homework_assignment_2</option>
                 <option>uncle_ted_examples_1</option>
                 <option>uncle_ted_examples_2</option>
               </select>
@@ -251,7 +246,7 @@
                          the closest birth_dates. The individual names should be 
                          formatted as 'lname, fname'.  I.E 'Smith, Joe'. 
                          The column name for the older individual's name should be <b>individual_1</b>. 
-                         The column name for the older individual's name should be <b>individual_2</b>. 
+                         The column name for the younger individual's name should be <b>individual_2</b>. 
 
                          <br/>
                          <br/>
@@ -272,7 +267,7 @@
                     </li>
                     <li class="list-group-item">
                       10. Show the <b>account_id</b>, <b>teller_txn_total</b>, and 
-                          <b>nonteller_txn_total</b> for each <b class="blue">account</b>,
+                          <b>nonteller_txn_total</b> for each account,
                           where teller_txn_total is the sum of all teller 
                           <b class="blue">transaction</b>s (teller_emp_id is not null),
                           and nonteller_txn_total is the total amount of all non-teller transactions.
