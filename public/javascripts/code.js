@@ -87,11 +87,7 @@
 
 
     $(':file').change(function () {
-<<<<<<< HEAD
-      let file = this.files && this.files[0]
-=======
       //let file = this.files[0]
->>>>>>> support-for-student-databases
 
       //if (!file.type.match(/zip/i)) {
         //if (!$('#zip-warning').length) {
@@ -105,18 +101,9 @@
         //resetUploaderForm()
         //hideSQLFileControlButtons()
       //} else {
-<<<<<<< HEAD
-        //removeTheTestsReport()
-        //showSQLFileControlButtons()
-      //}
-console.log("file.type:", file && file.type)
-      removeTheTestsReport()
-      showSQLFileControlButtons()
-=======
         removeTheTestsReport()
         showSQLFileControlButtons()
       //}
->>>>>>> support-for-student-databases
     })
 
     $('#uploader_send_btn').bind('click', function () {
