@@ -13,6 +13,8 @@ const databases = require('../constants/databases')
 const databaseNames = Object.keys(databases).map(db => databases[db])
 
 
+databaseNames.push('postgres')
+
 
 const configs = databaseNames.reduce((acc, database) => {
   acc[database] = {

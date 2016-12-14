@@ -11,6 +11,8 @@ envFile(path.join(__dirname, '../../config/mysql.env'))
 const databases = require('../constants/databases')
 const databaseNames = Object.keys(databases).map(db => databases[db])
 
+databaseNames.push(undefined)
+
 
 const configs = databaseNames.reduce((acc, database) => {
   acc[database] = {
@@ -19,6 +21,7 @@ const configs = databaseNames.reduce((acc, database) => {
     user     : process.env.MYSQL_USER,
     password : process.env.MYSQL_PASSWORD || undefined,
     database,
+    ssl : { rejectUnauthorized: false },
   }
 
   return acc

@@ -82,25 +82,16 @@
           <form id="uploader_form" enctype="multipart/form-data" role="form" action=''>
 
             <div id="db_server_selector">
-
               <label class="radio-inline">
                 <input type="radio" name="db_server" value="mysql" checked="">
                 MySQL
-              </label>
-
-              <label class="radio-inline">
-                <input type="radio" name="db_server" value="postgres">
-                PostgreSQL
               </label>
             </div>
 
             <div class="form-group">
               <label for="sel1">Select list:</label>
               <select class="form-control" id="assignment_selector">
-                <option>homework_assignment_1</option>
-                <option selected>homework_assignment_2</option>
-                <option>uncle_ted_examples_1</option>
-                <option>uncle_ted_examples_2</option>
+                <option>homework_assignment_5</option>
               </select>
             </div>
 
@@ -108,8 +99,13 @@
 
               <div class="assignment_instructions" id="assignment_description_div">
 
-                <div id="homework_assignment_1_content_div">
+                <div class="assignment_instructions" id="homework_assignment_5_content_div">
                   <h2>Instructions</h2>
+                  <h5>
+                      NOTE: This is an abridged version of the assignment instructions.
+                            Refer to the PDF posted on Blackboard for the complete version
+                            of the assignment instructions.
+                  </h5>
                   <p>
                     Upload the sql for the following queries in a ZIP archive. 
                     The file names should be for the form "<i>N</i>.sql", 
@@ -118,292 +114,54 @@
                   <h5>Queries</h5>
                   <ul class="list-group">
                     <li class="list-group-item">
-                      1. Display all the data in the <b class="blue">account</b> table.
+                      1. Write a query that describes the routes table.
+                          You should use the DESCRIBE command in MySQL.
                     </li>
                     <li class="list-group-item">
-                      2. Display the <b>city</b> and <b>state</b> from 
-                          the <b class="blue">branch</b> table.
+                      2. Write a query that outputs the route_id, route_short_name, 
+                          and route_long_name columns from the routes table.
+                          Order by route_id and take only the first 10 results.
                     </li>
                     <li class="list-group-item">
-                      3. Display the <b>cust_id</b> for all <b class="blue">customer</b>s
-                          whose address is in Waltham, MA.
+                      3. Write a query that outputs all columns (*) in the stops
+                          tables where the stop_name contains (LIKE) “Collins Circle”.
                     </li>
                     <li class="list-group-item">
-                      4. Display all the <b>postal_code</b>s in the <b class="blue">customer</b> table, 
-                         removing duplicates.
+                      4. Make a copy of Query 3 and modify it to now include the all columns (*) 
+                          from the stop_times table, as well. This query should produce all columns
+                          from both the stops and stop_times tables where the stop is Collins Circle.
+                          Refer to the documentation for which column to use to make the join.
                     </li>
                     <li class="list-group-item">
-                      5. Display the <b>account_id</b>, <b>cust_id</b>, 
-                          and <b>avail_balance</b> columns from <b class="blue">account</b>, in
-                          descending order by avail_balance, then account_id, then cust_id.
+                      5. Make a copy of Query 4 and add to the WHERE clause a condition that
+                          the bus should arrive at Collins Circle at or before 5:20 PM.
                     </li>
                     <li class="list-group-item">
-                      6. Display <b>cust_id</b>, <b>lname</b>, and <b>fname</b>
-                          from <b class="blue">individual</b>, in ascending order by lname,
-                          then fname, then cust_id.
+                      6. Make a copy of Query 5 and modify it to include data from the routes and
+                          trips tables. Show all columns (*). Use the join columns listed in the
+                          GTFS documentation. In the WHERE clause, add conditions that the 
+                          route_short_name is the 114, and that the trip_headsign is “West”.
                     </li>
                     <li class="list-group-item">
-                      7. Join the <b class="blue">business</b> and <b class="blue">officer</b> tables
-                          and display all columns.
-                          Each column name should appear only once in the result.
+                      7. Make a copy of Query 6 and modify it to include the information in the 
+                          calendar table. Make sure that the trip in in service the day of the 
+                          final exam. (Note that CDTA does not provide an end_date, so just use 
+                          start_dates.) Show all columns.
                     </li>
                     <li class="list-group-item">
-                      8. Join the <b class="blue">account</b> and <b class="blue">customer</b> tables
-                          and display the <b>city</b> and <b>state</b> columns 
-                          in descending order by avail_balance, 
-                          then ascending order by state, then city. 
-                          
-                          In other words, accounts should appear in descending order by avail_balance. 
-                          When two accounts have the same avail_balance, 
-                          then they should appear in ascending order by state, then city.
+                      8. Make a copy of Query 7 and modify to output only the trip_id of the trip 
+                          that arrives at Collins Circle as close to 5:20 PM as possible,
+                          without arriving after that time.
                     </li>
                     <li class="list-group-item">
-                      9. Do a three way join on <b class="blue">account</b>, 
-                          <b class="blue">product</b>, and <b class="blue">product_type</b> and 
-                          display <b>account_id</b>, <b>cust_id</b>, and <b>product_cd</b> 
-                          for all accounts where the product_type_cd is 'Individual
-                          and Business Loans'. 
-                          Each column name should only appear once in the result.
+                      9. Write a new query that outputs all the stop_names and arrival_times for 
+                          the trip that we identified in Query 8. Make a copy of Query 8 and use it
+                          in a subquery to make sure the trip is the one we identified in Query 8.
                     </li>
                     <li class="list-group-item">
-                      10. Display the <b>name</b>s of all branches
-                          where at least one business account (cust_type_cd = 'B') was opened.
-                          The necessary data is in the <b class="blue">account</b>,
-                          <b class="blue">branch</b>, <b class="blue">customer</b> tables.
-                          <u><i>You must use a subquery.</i></u>
-                          (The sql-tester will not check this. I will need to check for
-                           your using subqueries manually. The tester will only check if 
-                           the result has the correct column names and data.)
-                    </li>
-                  </ul>
-                </div>
-
-                <div id="homework_assignment_2_content_div">
-                  <h2>Instructions</h2>
-                  <p>
-                    Upload the sql for the following queries in a ZIP archive. 
-                    The file names should be for the form "<i>N</i>.sql", 
-                    where <i>N</i> is the respective query number.  
-                  </p>
-                  <h5>Queries</h5>
-                  <ul class="list-group">
-                    <li class="list-group-item">
-                      1. For the <b class="blue">account</b> table, show    
-                      <ul>
-                        <li>the total of all avail_balances as <b>total_avail_balance</b>,</li>
-                        <li>the average of all avail_balances as <b>avg_avail_balance</b>,</li>
-                        <li>the minimum of all avail_balances as <b>min_avail_balance</b>,</li>
-                        <li>the maximum of all avail_balances as <b>max_avail_balance</b>,</li>
-                        <li>the count of all avail_balances as <b>count_avail_balance</b>.</li>
-                      </ul>
-
-                      <br/>
-                        The result of the query should be a single row with 
-                          the above specified column names.
-                    </li>
-                    <li class="list-group-item">
-                      2. Show the <b>account_id</b> and <b>avail_balance</b> 
-                          for all checking <b class="blue">accounts</b>
-                          (i.e. account.product_cd = 'CHK') where the available balance 
-                          is more than twice the average checking account balance.
-                    </li>
-                    <li class="list-group-item">
-                      3. Show the total number of <b class="blue">transaction</b>s where 
-                          the teller_emp_id is null. The column name should be <b>nonteller_txn_ct</b>.
-                    </li>
-                    <li class="list-group-item">
-                      4. Show the <b>name</b> of every <b class="blue">branch</b> 
-                          where no <b class="blue">transaction</b> took place.
-                    </li>
-                    <li class="list-group-item">
-                      5. Show the <b>cust_id</b> and <b>total</b> of avail_balances 
-                          across all <b class="blue">account</b>s for each customer.
-                    </li>
-                    <li class="list-group-item">
-                      6. Show the <b>cust_id</b>, <b>fname</b>, <b>lname</b>, and 
-                        the <b class="blue">account</b> <b>product_cd</b> 
-                        of all <b class="blue">individual</b>s who have only one account.
-                    </li>
-                    <li class="list-group-item">
-                      7. Show all <b class="blue">business</b> <b>name</b>s where 
-                          an <b class="blue">officer</b>'s last name appears in the business name.
-                    </li>
-                    <li class="list-group-item">
-                      8. Show the 6 highest <b>avail_balance</b>s in <b class="blue">account</b> 
-                          <i>in descending order</i>. An avail_balance with duplicates 
-                          should only count once. For example, consider the following 
-                          list of numbers: (1,2,3,3,4). The highest three numbers would be (4,3,2). 
-                          <br/>
-                          <br/>
-                          HINT: Look at the slide for “Query 57: Better way to find the 6
-                          highest salaries in faculty”. 
-                          <br/>
-                          <br/>
-                          WARNING: phpMyAdmin may complain about non-existent errors. 
-                    </li>
-                    <li class="list-group-item">
-                      9. Show the names of the <b class="blue">individual</b>s with 
-                         the closest birth_dates. The individual names should be 
-                         formatted as 'lname, fname'.  I.E 'Smith, Joe'. 
-                         The column name for the older individual's name should be <b>individual_1</b>. 
-                         The column name for the younger individual's name should be <b>individual_2</b>. 
-
-                         <br/>
-                         <br/>
-                         HINTS:
-                         <ol>
-                          <li>
-                              Look at “Query 37: This solves the original problem”. 
-                              You need to use the idea of leveraging information obtained in a subquery.
-                          </li>
-                          <li>
-                              Use the subtraction operator, -, to get relative differences 
-                              between the birth dates.
-                          </li>
-                          <li>
-                              Table aliases are your friend.
-                          </li>
-                         </ol>
-                    </li>
-                    <li class="list-group-item">
-                      10. Show the <b>account_id</b>, <b>teller_txn_total</b>, and 
-                          <b>nonteller_txn_total</b> for each account,
-                          where teller_txn_total is the sum of all teller 
-                          <b class="blue">transaction</b>s (teller_emp_id is not null),
-                          and nonteller_txn_total is the total amount of all non-teller transactions.
-                          Order by the ratio of teller_txn_total to the total amount of 
-                          all transactions for that customer.
-                          <br/>
-                          <br/>
-                          WARNING: again, phpMyAdmin may again complain about non-existent errors.
-                    </li>
-                  </ul>
-                </div>
-
-                <div class="assignment_instructions" id="uncle_ted_examples_1_content_div">
-                  <h2>Instructions</h2>
-                  <p>
-                    Upload the sql for the following queries in a ZIP archive. 
-                    The file names should be for the form "<i>N</i>.sql", 
-                    where <i>N</i> is the respective query number.  
-                  </p>
-                  <h5>Queries</h5>
-                  <ul class="list-group">
-                    <li class="list-group-item">
-                      1. Display all the data in the Department table.
-                    </li>
-                    <li class="list-group-item">
-                      2. Display the flast, ffirst, fdept, and fsalary columns from the Faculty table.
-                    </li>
-                    <li class="list-group-item">
-                      3. Display all the first names in the Faculty table and remove duplicate rows.
-                    </li>
-                    <li class="list-group-item">
-                      4. Display all the data in the Course table in descending cname order.
-                    </li>
-                    <li class="list-group-item">
-                      5. Display the id, full name, and salary columns from the Faculty table 
-                          and sort the output in telephone book order.
-                    </li>
-                    <li class="list-group-item">
-                      6. Join the Department and Faculty tables and display all the columns.
-                    </li>
-                    <li class="list-group-item">
-                      7. Join the Faculty and Course tables.
-                    </li>
-                    <li class="list-group-item">
-                      8. Join the Department and Course tables.
-                    </li>
-                    <li class="list-group-item">
-                      9. Join the Course and Section tables.
-                    </li>
-                    <li class="list-group-item">
-                      10. Do a 3-way join of the Department, Course, and Section tables.
-                    </li>
-                    <li class="list-group-item">
-                      11. Do a 3-way join of the Department, Faculty, and Section tables.
-                    </li>
-                    <li class="list-group-item">
-                      13. Find departments that offer courses.
-                    </li>
-                    <li class="list-group-item">
-                      18. Find departments that don’t offer courses.
-                    </li>
-                    <li class="list-group-item">
-                      19. Find courses that have sections.
-                    </li>
-                    <li class="list-group-item">
-                      20. Find courses that have sections.
-                    </li>
-                    <li class="list-group-item">
-                      25. Join subordinates and managers… 
-                          they both just happen to be in the same table: Faculty.
-                    </li>
-                    <li class="list-group-item">
-                      26. Find all the subordinates who make more than their managers.
-                    </li>
-                    <li class="list-group-item">
-                      27. List all the departments in Faculty and Course.
-                    </li>
-                    <li class="list-group-item">
-                      28. Count the number of rows in Faculty.
-                    </li>
-                    <li class="list-group-item">
-                      29. Count the number of non-null fid values in Faculty.
-                    </li>
-                    <li class="list-group-item">
-                      30. Count the number of departments that offer courses.
-                    </li>
-                  </ul>
-                </div>
-
-                <div class="assignment_instructions" id="uncle_ted_examples_2_content_div">
-                  <h2>Instructions</h2>
-                  <p>
-                    Upload the sql for the following queries in a ZIP archive. 
-                    The file names should be for the form "<i>N</i>.sql", 
-                    where <i>N</i> is the respective query number.  
-                  </p>
-                  <h5>Queries</h5>
-                  <ul class="list-group">
-                    <li class="list-group-item">
-                      32. Calculate the average salary of all employees.
-                    </li>
-                    <li class="list-group-item">
-                      33. Display Faculty rows that earn more than the average salary.
-                    </li>
-                    <li class="list-group-item">
-                      34. Find departments with faculty salaries over their budgeted amount.
-                    </li>
-                    <li class="list-group-item">
-                      35. Find the highest salary in each department.
-                    </li>
-                    <li class="list-group-item">
-                      38. List all departments with only one course.
-                    </li>
-                    <li class="list-group-item">
-                      39. Find all the last names that begin with “B”.
-                    </li>
-                    <li class="list-group-item">
-                      40. Find all the last names that contain an “e”.
-                    </li>
-                    <li class="list-group-item">
-                      41. Find all the last names that start with “d” and have a “B” in the 4th position.
-                    </li>
-                    <li class="list-group-item">
-                      42. List the names of employees who earn between $20,000 and $33,700 (inclusive).
-                    </li>
-                    <li class="list-group-item">
-                      53. Count the number of courses offered by each department, and include zero counts.
-                    </li>
-                    <li class="list-group-item">
-                      55. Without using LIMIT, find the 3 highest salaries in faculty.  
-                    </li>
-                    <li class="list-group-item">
-                      56. Find the 6 highest salaries in faculty using the same strategy as Query 55.
-                    </li>
-                    <li class="list-group-item">
-                      61. Join department and faculty, and include departments with no faculty.
+                      10. Make a copy of Q9 and modify it to get the stop names and arrival times 
+                           of the 114 bus that arrives at Collins Circle as close to 7:50 PM as 
+                           possible (not earlier), then heads East into Winter Vacation.
                     </li>
                   </ul>
                 </div>

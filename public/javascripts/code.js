@@ -9,14 +9,11 @@
     ]
 
     const assignments = [
-      'homework_assignment_1',
-      'homework_assignment_2',
-      'uncle_ted_examples_1',
-      'uncle_ted_examples_2',
+      'homework_assignment_5',
     ]
 
     let activeDiv = '#about_div'
-    let activeAssignment = 'homework_assignment_2'
+    let activeAssignment = 'homework_assignment_5'
 
     for (let i = 0; i < contentDivs.length; ++i) {
       if (contentDivs[i] !== activeDiv) {
@@ -90,7 +87,11 @@
 
 
     $(':file').change(function () {
+<<<<<<< HEAD
       let file = this.files && this.files[0]
+=======
+      //let file = this.files[0]
+>>>>>>> support-for-student-databases
 
       //if (!file.type.match(/zip/i)) {
         //if (!$('#zip-warning').length) {
@@ -104,12 +105,18 @@
         //resetUploaderForm()
         //hideSQLFileControlButtons()
       //} else {
+<<<<<<< HEAD
         //removeTheTestsReport()
         //showSQLFileControlButtons()
       //}
 console.log("file.type:", file && file.type)
       removeTheTestsReport()
       showSQLFileControlButtons()
+=======
+        removeTheTestsReport()
+        showSQLFileControlButtons()
+      //}
+>>>>>>> support-for-student-databases
     })
 
     $('#uploader_send_btn').bind('click', function () {
