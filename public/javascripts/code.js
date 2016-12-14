@@ -9,14 +9,11 @@
     ]
 
     const assignments = [
-      'homework_assignment_1',
-      'homework_assignment_2',
-      'uncle_ted_examples_1',
-      'uncle_ted_examples_2',
+      'homework_assignment_5',
     ]
 
     let activeDiv = '#about_div'
-    let activeAssignment = 'homework_assignment_1'
+    let activeAssignment = 'homework_assignment_5'
 
     for (let i = 0; i < contentDivs.length; ++i) {
       if (contentDivs[i] !== activeDiv) {
@@ -90,23 +87,23 @@
 
 
     $(':file').change(function () {
-      let file = this.files[0]
+      //let file = this.files[0]
 
-      if (!file.type.match(/zip/i)) {
-        if (!$('#zip-warning').length) {
-          $('#uploader_form').append(
-              '<div id="zip-warning" class="alert alert-danger">' +
-                  '<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>' +
-                  "SQL scripts uploads must be in a .zip archive." +
-              '</div>')
-        }
+      //if (!file.type.match(/zip/i)) {
+        //if (!$('#zip-warning').length) {
+          //$('#uploader_form').append(
+              //'<div id="zip-warning" class="alert alert-danger">' +
+                  //'<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>' +
+                  //"SQL scripts uploads must be in a .zip archive." +
+              //'</div>')
+        //}
 
-        resetUploaderForm()
-        hideSQLFileControlButtons()
-      } else {
+        //resetUploaderForm()
+        //hideSQLFileControlButtons()
+      //} else {
         removeTheTestsReport()
         showSQLFileControlButtons()
-      }
+      //}
     })
 
     $('#uploader_send_btn').bind('click', function () {

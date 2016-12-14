@@ -5,6 +5,8 @@ const path = require('path')
 const _ = require('lodash')
 const async = require('async')
 
+const NodeCache = require( "node-cache" )
+const myCache = new NodeCache( { stdTTL: 3600, checkperiod: 300 } )
 
 const logger = require('../logger')
 
@@ -144,83 +146,96 @@ const _testSQLScript = (assignment, dbServer, submittedScriptsDir, fileName, cb)
 
     query = query.replace(/^\uFEFF/, '') // Remove the byte order mark (pgadmin3 issue)
 
-    let queryRunner = queryRunnersForAssignments[assignment][dbServer]
+    return myCache.get(query, (err, cachedResult) => {
+      if (err) {
+        return cb(err)
+      }
 
-    queryRunner(query, (dbErr, result) => {
-      if (dbErr) {
-        errors.push(dbErr.message)
-      } else {
+      if (cachedResult !== undefined) {
+        myCache.set(query, cachedResult)
+        return cb(null, cachedResult)
+      }
 
-        try {
-          if (dbServer === POSTGRES) {
-            result = result && result.rows
-          }
+      let queryRunner = queryRunnersForAssignments[assignment][dbServer]
 
-          if (!(result && result[0])) {
-            errors.push('Empty response from the database.')
-          } else {
+      queryRunner(query, (dbErr, result) => {
 
-            result = JSON.parse(JSON.stringify(result))
+        if (dbErr) {
+          errors.push(dbErr.message)
+        } else {
 
-
-            let questionNumber = fileName.replace(/.sql/, '')
-            let schema = Object.keys(result[0]).sort()
-
-            let expected = expectedResults[assignment][dbServer][questionNumber]
-
-            let badSchema = !_.isEqual(expected.schema, schema)
-
-            if (badSchema) {
-              errors.push('The result set has the wrong schema. ' +
-                          `The expected column names are: [${expected.schema.join()}]`)
+          try {
+            if (dbServer === POSTGRES) {
+              result = result && result.rows
             }
 
-            let recognizedColumns = _.intersection(expected.schema, schema)
-
-            let expectedForRecognizedColumns = expected.result.map(row => _.pick(row, recognizedColumns))
-            let resultForRecognizedColumns = result.map(row => _.pick(row, recognizedColumns))
-
-            let rules = (testingRules[assignment] && testingRules[assignment][questionNumber]) || {}
-            let badResult
-
-            if (rules.order_matters) {
-              badResult = !_.isEqual(expectedForRecognizedColumns, resultForRecognizedColumns)
+            if (!(result && result[0])) {
+              errors.push('Empty response from the database.')
             } else {
-              // Testing equality by set differences
-              let leftDiff = _.differenceWith(expectedForRecognizedColumns,
-                                              resultForRecognizedColumns,
-                                              _.isEqual)
 
-              let rightDiff = _.differenceWith(resultForRecognizedColumns,
-                                               expectedForRecognizedColumns,
-                                               _.isEqual)
+              result = JSON.parse(JSON.stringify(result))
 
-              badResult = !!(leftDiff.length + rightDiff.length)
-            }
+              let questionNumber = fileName.replace(/.sql/, '')
+              let schema = Object.keys(result[0]).sort()
 
-            if (badResult) {
+              let expected = expectedResults[assignment][dbServer][questionNumber]
+
+
+              let badSchema = !_.isEqual(expected.schema, schema)
+
               if (badSchema) {
-                errors.push('For the result set columns that are in the expected schema, ' +
-                            'the result data is incorrect.')
-              } else {
-                errors.push('The result data is incorrect.')
+                errors.push('The result set has the wrong schema. ' +
+                            `The expected column names are: [${expected.schema.join()}]`)
               }
+
+              let recognizedColumns = _.intersection(expected.schema, schema)
+
+              let expectedForRecognizedColumns =
+                    expected.result.map(row => _.pick(row, recognizedColumns))
+
+              let resultForRecognizedColumns = result.map(row => _.pick(row, recognizedColumns))
+
+              let rules = (testingRules[assignment] && testingRules[assignment][questionNumber]) || {}
+              let badResult
+
+              if (rules.order_matters) {
+                badResult = !_.isEqual(expectedForRecognizedColumns, resultForRecognizedColumns)
+              } else {
+                // Testing equality by set differences
+                let leftDiff = _.differenceWith(expectedForRecognizedColumns,
+                                                resultForRecognizedColumns,
+                                                _.isEqual)
+
+                let rightDiff = _.differenceWith(resultForRecognizedColumns,
+                                                 expectedForRecognizedColumns,
+                                                 _.isEqual)
+
+                badResult = !!(leftDiff.length + rightDiff.length)
+              }
+
+              if (badResult) {
+                if (badSchema) {
+                  errors.push('For the result set columns that are in the expected schema, ' +
+                              'the result data is incorrect.')
+                } else {
+                  errors.push('The result data is incorrect.')
+                }
+              }
+
             }
 
+          } catch (e) {
+            errors.push(e.message)
           }
 
-        } catch (e) {
-          errors.push(e.message)
+          let res = (errors.length) ? { failed: errors } : 'passed'
+
+          myCache.set(query, res)
+          cb(null, res)
         }
-      }
+      })
 
-      if (errors.length) {
-        cb(null, { failed: errors })
-      } else {
-        cb(null, 'passed')
-      }
-
-    })
+    }) //END Cache search
   })
 }
 

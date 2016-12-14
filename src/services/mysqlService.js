@@ -13,6 +13,7 @@ const databaseNames = Object.keys(databases).map(db => databases[db])
 
 databaseNames.push(undefined)
 
+
 const configs = databaseNames.reduce((acc, database) => {
   acc[database] = {
     host     : process.env.MYSQL_NETLOC,
@@ -20,6 +21,7 @@ const configs = databaseNames.reduce((acc, database) => {
     user     : process.env.MYSQL_USER,
     password : process.env.MYSQL_PASSWORD || undefined,
     database,
+    ssl : { rejectUnauthorized: false },
   }
 
   return acc

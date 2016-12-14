@@ -19,7 +19,8 @@ const dbServerNames = Object.keys(dbServers).map(s => dbServers[s])
 
 
 const assignmentToDatabaseMap = require('../src/constants/assignmentToDatabaseMap')
-const DB_NAME = assignmentToDatabaseMap[assignment].toLowerCase()
+//const DB_NAME = assignmentToDatabaseMap[assignment].toLowerCase()
+const DB_NAME = assignmentToDatabaseMap[assignment]
 
 
 const dbUtils = require('../src/utils/DBUtils')

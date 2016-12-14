@@ -1,0 +1,21 @@
+__NAME__,
+
+I set up a new MySQL server for HW3.
+
+You can access it by entering "mysql-db.tomchik.net" into the Server field at http://mysql.csi410.tomchik.net/index.php.
+
+Your temporary password is '__PASSWD__'.  Make sure to change it ASAP. You can use the following statement in the web app's SQL box:
+
+SET PASSWORD = PASSWORD('<your new password here>');
+
+Passwords must be 8 characters in length. 
+===== DO NOT REUSE PASSWORDS TO IMPORTANT ACCOUNTS =====
+
+
+You will find a database already created that is named after your NetID, '__NETID__'. You can CREATE and DROP tables, indices, views, and triggers in that database. I have granted as many permissions to you as possible. Just remember, "With great power comes great responsibility."
+
+
+If you have any questions, or notice any problems, do not hesitate to email me.
+
+Thanks.
+Paul
